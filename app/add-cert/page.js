@@ -13,31 +13,7 @@ const AddCert = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    try {
-      console.log("try upload");
-      // Make a POST request to the API route with form data
-      const response = await fetch('/api/uploadCert', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        console.log('Data uploaded successfully');
-        // Do something after successful upload
-      } else {
-        console.error('Upload failed');
-        // Handle upload failure
-      }
-    } catch (error) {
-      console.error('Error:', error);
-      // Handle error
-    }
-  };
-
+  }
   return (
     <form onSubmit={handleSubmit} className='flex gap-10 justify-start flex-col mx-auto mt-20 w-[50rem]'>
       <input
