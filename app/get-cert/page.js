@@ -10,17 +10,17 @@ const GetCert = async () => {
             {/* head */}
             <thead>
               <tr>
-                <th>ID</th>
-                <th>Contract ID</th>
-                <th>Content</th>
+                {/* <th>ID</th> */}
+                <th className="text-md font-bold">Contract ID</th>
+                <th className="text-md font-bold">Content</th>
               </tr>
             </thead>
             <tbody>
               {results.map((result) => (
                 <tr key={result.id}>
-                  <td className="">{result.id}</td>
-                  <td className="text-zinc-600">{result.contractNo}</td>
-                  <td className="truncate max-w-[28rem] text-zinc-500">{result.content}</td>
+                  {/* <td className="">{result.id}</td> */}
+                  <td className="text-zinc-600 flex align-start">{result.contractNo}</td>
+                  <td className="max-w-[28rem] text-zinc-600">{result.content}</td>
                 </tr>
               ))}
             </tbody>

@@ -1,10 +1,10 @@
-"use client"
-import React, { useState } from 'react';
+"use client";
+import React, { useState } from "react";
 
 const AddCert = () => {
   const [formData, setFormData] = useState({
-    contractNo: '24EB00',
-    content: '',
+    contractNo: "24EB00",
+    content: "",
   });
 
   const handleChange = (e) => {
@@ -13,9 +13,39 @@ const AddCert = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  }
+    try {
+      const response = await fetch(
+        "http://localhost:3000/api/cert/uploadCert",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to upload certificate.");
+      }
+
+      // Reset the form after successful upload
+      setFormData({
+        contractNo: "24EB00",
+        content: "",
+      });
+
+      alert("Certificate uploaded successfully!");
+    } catch (error) {
+      console.error("Error uploading certificate:", error.message);
+      alert("Failed to upload certificate. Please try again later.");
+    }
+  };
   return (
-    <form onSubmit={handleSubmit} className='flex gap-10 justify-start flex-col mx-auto mt-20 w-[50rem]'>
+    <form
+      onSubmit={handleSubmit}
+      className="flex gap-10 justify-start flex-col mx-auto mt-20 w-[50rem]"
+    >
       <input
         type="text"
         name="contractNo"
@@ -32,7 +62,12 @@ const AddCert = () => {
         rows={10}
         placeholder="Paste your content here..."
       />
-      <button className="btn btn-secondary w-[10rem] text-sm rounded-md" type="submit">Upload</button>
+      <button
+        className="btn btn-secondary w-[10rem] text-sm rounded-md"
+        type="submit"
+      >
+        Upload
+      </button>
     </form>
   );
 };
