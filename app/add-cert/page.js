@@ -40,7 +40,7 @@ const AddCert = () => {
           body: JSON.stringify(formData),
         }
       );
-      console.log("response",response);
+      console.log("response", response);
 
       if (!response.ok) {
         throw new Error("Failed to upload certificate.");
@@ -48,7 +48,7 @@ const AddCert = () => {
 
       // Reset the form after successful upload
       setFormData({
-        contractNo: "24EB00",
+        contractNo: "",
         content: "",
       });
 
@@ -64,11 +64,12 @@ const AddCert = () => {
       onSubmit={handleSubmit}
       className="flex gap-10 justify-start flex-col mx-auto mt-20 w-[50rem]"
     >
-
       <div className="stats stats-vertical shadow w-40">
         <div className="stat">
-          <div className="stat-title text-sm mb-2">Contract NO:</div>
-          <div className="stat-value text-lg font-semibold ">{formData.contractNo}</div>
+          <div className="stat-title text-xs mb-2">Contract NO:</div>
+          <div className="stat-value text-lg font-semibold ">
+            {formData.contractNo}
+          </div>
         </div>
       </div>
 
