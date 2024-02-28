@@ -1,16 +1,22 @@
-import connection from "@/config/db";
+"use client";
 
-const GetCert = async () => {
+import { useEffect } from "react/cjs/react.production.min";
+
+const handleGetCert() = () => {
+  todo:
+}
+
+const GetCert = () => {
+  useEffect(() => {
+    handleGetCert();
+  }, []);
   try {
-    const [results, fields] = await connection.query("SELECT * FROM `cert`");
-    console.log("click");
-    const handleRefresh = () => {
-      console.log("click");
-    };
+    // const [results] = await connection.query("SELECT * FROM `cert` ORDER BY `createdAt` DESC LIMIT 10");
+
     return (
       <div className="width-full p-10 mt-5 flex justify-center flex-col gap-10">
         <div className="overflow-x-auto mx-auto ">
-          <table className="table table-zebra table-pin-rows w-[50rem]">
+          <table className="table table-zebra table-pin-rows w-[60rem]">
             {/* head */}
             <thead>
               <tr>

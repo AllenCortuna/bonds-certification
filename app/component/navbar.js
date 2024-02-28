@@ -5,13 +5,16 @@ export const Navbar = () => {
   return (
     <div className="navbar bg-base-100 px-20 bg-zinc-200">
       <div className="flex-1">
-        <Link href={"/"} className="btn btn-ghost text-xl">CertGEN</Link>
+        <Link href={"/"} className="btn btn-ghost text-xl">
+          CertGEN
+        </Link>
       </div>
       <div className="flex-none">
         <ul className="menu menu-horizontal px-1">
           <li>
             <Link href={"/"}>Homepage</Link>
           </li>
+
           <li>
             <details>
               <summary>Actions</summary>
