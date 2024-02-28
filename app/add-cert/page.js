@@ -1,15 +1,31 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const AddCert = () => {
   const [formData, setFormData] = useState({
-    contractNo: "24EB00",
+    contractNo: "",
     content: "",
   });
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+  useEffect(() => {
+    setFormData({ ...formData, contractNo: "" });
+    // extract contractNo
+    const regex = /\b(?:project)\s*([^\s:]+)/i;
+    const match = formData.content.match(regex);
+    // console.log(formData.content);
+    if (match) {
+      const projectCode = match[1];
+      setFormData({ ...formData, contractNo: projectCode });
+      // console.log(projectCode);
+    } else {
+      console.log("");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formData.content]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,6 +40,7 @@ const AddCert = () => {
           body: JSON.stringify(formData),
         }
       );
+      console.log("response",response);
 
       if (!response.ok) {
         throw new Error("Failed to upload certificate.");
@@ -41,22 +58,23 @@ const AddCert = () => {
       alert("Failed to upload certificate. Please try again later.");
     }
   };
+
   return (
     <form
       onSubmit={handleSubmit}
       className="flex gap-10 justify-start flex-col mx-auto mt-20 w-[50rem]"
     >
-      <input
-        type="text"
-        name="contractNo"
-        className="input input-bordered w-full max-w-xs bg-zinc-300 font-bold text-orange-600"
-        value={formData.contractNo}
-        onChange={handleChange}
-        placeholder="Contract No."
-      />
+
+      <div className="stats stats-vertical shadow w-40">
+        <div className="stat">
+          <div className="stat-title text-sm mb-2">Contract NO:</div>
+          <div className="stat-value text-lg font-semibold ">{formData.contractNo}</div>
+        </div>
+      </div>
+
       <textarea
         name="content"
-        className="textarea textarea-bordered bg-zinc-300"
+        className="textarea textarea-bordered bg-zinc-300 "
         value={formData.content}
         onChange={handleChange}
         rows={10}
