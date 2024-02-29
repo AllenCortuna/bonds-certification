@@ -5,7 +5,7 @@ export const Navbar = () => {
   return (
     <div className="navbar bg-base-100 px-20 bg-zinc-200">
       <div className="flex-1">
-        <Link href={"/"} className="btn btn-ghost text-xl">
+        <Link href={"/"} className="btn btn-ghost text-xl font-bold">
           CertGEN
         </Link>
       </div>
