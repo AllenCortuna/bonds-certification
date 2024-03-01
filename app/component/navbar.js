@@ -12,7 +12,7 @@ export const Navbar = () => {
       <div className="flex-none">
         <ul className="menu menu-horizontal px-1">
           <li>
-            <Link href={"/"}>Homepage</Link>
+            <Link href={"/search-cert"}>Search</Link>
           </li>
 
           <li>
