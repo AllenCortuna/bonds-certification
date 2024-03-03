@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import connection from "@/config/db";
+// import connection from "@/config/db";
 import * as xlsx from "xlsx";
 import fs from "fs"; // Import the 'fs' module to read the file
 
@@ -12,7 +12,7 @@ export async function GET() {
     // Convert the buffer to a workbook
     const workbook = xlsx.read(buffer, { type: "buffer" });
     // Get the sheet name
-    const sheetName = workbook.SheetNames[0];
+    const sheetName = workbook.SheetNames[7];
     // Get the sheet
     const sheet = workbook.Sheets[sheetName];
     // Convert Excel data to JSON
