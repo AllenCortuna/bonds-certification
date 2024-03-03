@@ -3,21 +3,16 @@ import { NextResponse } from "next/server";
 import * as xlsx from "xlsx";
 import fs from "fs"; // Import the 'fs' module to read the file
 
-
 export async function GET() {
-  console.log("try xlsx upload");
   try {
-    // Read the Excel file
-    const buffer = fs.readFileSync("/Users/zanzen/Desktop/DPWH/bonds.xlsm");
-    // Convert the buffer to a workbook
-    const workbook = xlsx.read(buffer, { type: "buffer" });
-    // Get the sheet name
-    const sheetName = workbook.SheetNames[7];
-    // Get the sheet
-    const sheet = workbook.Sheets[sheetName];
-    // Convert Excel data to JSON
-    const data = xlsx.utils.sheet_to_json(sheet);
-    console.log('data', data)
+    //! remove all the data in the table before uploading
+    const buffer = fs.readFileSync("/Users/zanzen/Desktop/DPWH/bonds.xlsm"); // Read the Excel file
+    const workbook = xlsx.read(buffer, { type: "buffer" }); // Convert the buffer to a workbook
+    const sheetName = workbook.SheetNames[7]; // Get the sheet name
+    const sheet = workbook.Sheets[sheetName]; // Get the sheet
+    const data = xlsx.utils.sheet_to_json(sheet); // Convert Excel data to JSON
+    const bonds = data.slice(8);
+    console.log("data", bonds);
 
     // for (const row of data) {
     //   const keys = Object.keys(row);
@@ -31,7 +26,7 @@ export async function GET() {
     console.log("Data uploaded successfully");
     return NextResponse.json({
       status: 200,
-      data: data, // Return the data in the response
+      data: bonds, // Return the data in the response
     });
   } catch (error) {
     console.log(error);
