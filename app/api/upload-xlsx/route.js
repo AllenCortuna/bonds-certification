@@ -1,38 +1,35 @@
 import { NextResponse } from "next/server";
-// import connection from "@/config/db";
+import connection from "@/config/db";
 import * as xlsx from "xlsx";
-import fs from "fs"; // Import the 'fs' module to read the file
+import fs from "fs";
 
 export async function GET() {
   try {
-    //! remove all the data in the table before uploading
-    const buffer = fs.readFileSync("/Users/zanzen/Desktop/DPWH/bonds.xlsm"); // Read the Excel file
-    const workbook = xlsx.read(buffer, { type: "buffer" }); // Convert the buffer to a workbook
-    const sheetName = workbook.SheetNames[7]; // Get the sheet name
-    const sheet = workbook.Sheets[sheetName]; // Get the sheet
-    const data = xlsx.utils.sheet_to_json(sheet); // Convert Excel data to JSON
-    const bonds = data.slice(8);
-    console.log("data", bonds);
+    const buffer = fs.readFileSync("/Users/zanzen/Desktop/DPWH/bonds.xlsm");
+    const workbook = xlsx.read(buffer, { type: "buffer" });
+    const sheetName = workbook.SheetNames[7];
+    const sheet = workbook.Sheets[sheetName];
+    const data = xlsx.utils.sheet_to_json(sheet);
+    const bonds = data.slice(8); // Assuming you're excluding header rows
 
-    // for (const row of data) {
-    //   const keys = Object.keys(row);
-    //   const values = Object.values(row);
-
-    //   const query = `INSERT INTO cert (contractNo, content) VALUES (${keys.map(() => "?").join(", ")})`;
-
-    //   await connection.query(query, values);
-    // }
+    for (const row of bonds) {
+      const arr = Object.values(row);
+      await connection.query(
+        "INSERT INTO bonds (id, num, contractor_name, project_no, project_name, amount, date_validated, effectivity_date, expiration_date, validity, bond_no, insurance_company, bond_type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        arr
+      );
+    }
 
     console.log("Data uploaded successfully");
     return NextResponse.json({
       status: 200,
-      data: bonds, // Return the data in the response
+      data: bonds,
     });
   } catch (error) {
     console.log(error);
     return NextResponse.json({
-      status: 500, // Set status to 500 for internal server error
-      error: error.message, // Return error message in the response
+      status: 500,
+      error: error.message,
     });
   }
 }

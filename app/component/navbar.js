@@ -6,7 +6,7 @@ export const Navbar = () => {
     <div className="navbar bg-base-100 px-20 bg-zinc-200">
       <div className="flex-1">
         <Link href={"/"} className="btn btn-ghost text-xl font-bold">
-          CertGEN
+          Validated BONDS
         </Link>
       </div>
       <div className="flex-none">
@@ -20,10 +20,10 @@ export const Navbar = () => {
               <summary>Actions</summary>
               <ul className="p-2 bg-base-100 rounded-t-none w-40">
                 <li>
-                  <Link href={"/add-cert"}>Add Certificate</Link>
+                  <Link href={"/"}>Toturials</Link>
                 </li>
                 <li>
-                  <Link href={"/get-cert"}>Get Certificate</Link>
+                  <Link href={"/"}>Trobleshoot</Link>
                 </li>
               </ul>
             </details>

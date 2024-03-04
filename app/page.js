@@ -10,15 +10,9 @@ export default function Home() {
         </button>
       </Link>
 
-      <Link href={"/add-cert"}>
-        <button className="btn btn-outline rounded-md text-zinc-500 text-md">
-          Add Certificate
-        </button>
-      </Link>
-
       <Link href={"/get-cert"}>
         <button className="btn btn-outline rounded-md text-zinc-500 text-md">
-          Certificate List
+          Refresh Data
         </button>
       </Link>
     </main>
