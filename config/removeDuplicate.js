@@ -1,6 +1,5 @@
-const removeDuplicate = (array) => {
+export const removeDuplicate = (array) => {
   // Create an object to store unique keys
-  console.log(array);
   const uniqueKeys = {};
 
   // Filter the array based on the first item (index 0) of each sub-array
@@ -23,5 +22,3 @@ const removeDuplicate = (array) => {
 
   return uniqueArray;
 }
-
-export default removeDuplicate;
