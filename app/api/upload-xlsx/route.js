@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import connection from "@/config/db";
 import * as xlsx from "xlsx";
 import fs from "fs";
+import removeDuplicate from "@config/removeDuplicate";
 
 export async function GET() {
   try {
@@ -12,7 +13,8 @@ export async function GET() {
     const sheet = workbook.Sheets[sheetName];
     const data = xlsx.utils.sheet_to_json(sheet);
     const sliceData = data.slice(8); // Assuming you're excluding header rows
-    const bonds = sliceData.map((obj) => Object.values(obj));
+    const unfilterBonds = sliceData.map((obj) => Object.values(obj));
+    const bonds = removeDuplicate(unfilterBonds);
 
     console.log("bonds :", bonds);
     for (const row of bonds) {
