@@ -7,20 +7,20 @@ import PrintableCert from "../component/PrintableCert";
 const SearchCert = () => {
   const apiUrl = "http://localhost:3000/api/cert/searchCert";
 
-  const [contractNo, setContractNo] = useState("");
+  const [id, setId] = useState("");
   const [data, setData] = useState({});
 
   const handleSearch = async () => {
     try {
-      const response = await axios.post(apiUrl, JSON.stringify(contractNo), {
+      const response = await axios.post(apiUrl, JSON.stringify(id), {
         headers: {
           "Content-Type": "application/json",
         },
       });
       // Handle the response here
-      console.log("response.data: ",response);
+      // console.log("response: ",rawData);
       setData(response.data.results[0]);
-      console.log("data: ", data.content);
+      console.log("data: ", data);
 
       // if (!response.ok) {
       //   throw new Error("Failed to Search certificate.");
@@ -43,9 +43,9 @@ const SearchCert = () => {
             className="grow"
             placeholder="Search"
             onChange={(e) => {
-              setContractNo(e.target.value);
+              setId(e.target.value);
             }}
-            value={contractNo}
+            value={id}
           />
         </label>
         {/* Search  */}

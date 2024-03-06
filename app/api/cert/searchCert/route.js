@@ -2,15 +2,15 @@ import { NextResponse } from "next/server";
 import connection from "@/config/db";
 
 export async function POST(request) {
+  console.log("TRY SEARCH ");
   try {
     // Extract data from the request body
-
-    const contractNo = await request.json();
-    console.log("contractNo: ", contractNo);
+    const id = await request.json();
+    console.log("SUBMITTED ID: ", id);
 
     const [rows,fields] = await connection.query(
-      "SELECT * FROM `cert` WHERE contractNO = ?",
-      [contractNo]
+      "SELECT * FROM `bonds` WHERE id = ?",
+      [id]
     );
     console.log("rows:", rows);
     return NextResponse.json({
