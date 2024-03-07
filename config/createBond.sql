@@ -4,7 +4,7 @@ CREATE TABLE bonds (
     contractor_name VARCHAR(255),
     project_no VARCHAR(255),
     project_name VARCHAR(255),
-    amount FLOAT,
+    amount VARCHAR(255),
     date_validated INT,
     effectivity_date INT,
     expiration_date INT,

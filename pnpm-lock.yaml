@@ -8,6 +8,9 @@ dependencies:
   axios:
     specifier: ^1.6.7
     version: 1.6.7
+  docxtemplater:
+    specifier: ^3.46.0
+    version: 3.46.0
   mysql2:
     specifier: ^3.9.1
     version: 3.9.1
@@ -362,6 +365,11 @@ packages:
   /@ungap/structured-clone@1.2.0:
     resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
     dev: true
+
+  /@xmldom/xmldom@0.8.10:
+    resolution: {integrity: sha512-2WALfTl4xo2SkGCYRt6rDTFfk9R1czmBvUQy12gK2KuRKIpWEhcbbzy8EZXtz/jkRqHX8bFEc6FC1HjX4TUWYw==}
+    engines: {node: '>=10.0.0'}
+    dev: false
 
   /acorn-jsx@5.3.2(acorn@8.11.3):
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
@@ -862,6 +870,13 @@ packages:
     dependencies:
       esutils: 2.0.3
     dev: true
+
+  /docxtemplater@3.46.0:
+    resolution: {integrity: sha512-KZEy3icAm+Y+EtcAxomDXrjZq2HzzQdHVu+g0VQUttt0c7cMmTztNGJoWLmCTssCjOtGFePzRVwMQp8bewL0TQ==}
+    engines: {node: '>=0.10'}
+    dependencies:
+      '@xmldom/xmldom': 0.8.10
+    dev: false
 
   /eastasianwidth@0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}

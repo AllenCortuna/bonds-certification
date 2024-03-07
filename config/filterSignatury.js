@@ -1,4 +1,4 @@
-export const removeDuplicatePerson = (array) => {
+export const filterSignatury = (array) => {
   // Create an object to store unique keys
   const uniqueKeys = {};
 

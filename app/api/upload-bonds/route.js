@@ -3,12 +3,13 @@ import connection from "@/config/db";
 import * as xlsx from "xlsx";
 import fs from "fs";
 import { removeDuplicate } from "@/config/removeDuplicate";
+import { log } from "console";
 
 
 export async function GET() {
   try {
-    // const buffer = fs.readFileSync("/Users/zanzen/Desktop/DPWH/bonds.xlsm");
-    const buffer = fs.readFileSync("C:/Users/User/Desktop/bonds.xlsm");
+    const buffer = fs.readFileSync("/Users/zanzen/Desktop/DPWH/bonds.xlsm"); //mac
+    // const buffer = fs.readFileSync("C:/Users/User/Desktop/bonds.xlsm");
     const workbook = xlsx.read(buffer, { type: "buffer" });
     const sheetName = workbook.SheetNames[7];
     const sheet = workbook.Sheets[sheetName];
@@ -16,6 +17,8 @@ export async function GET() {
     const sliceData = data.slice(8); // Assuming you're excluding header rows
     const unfilterBonds = sliceData.map((obj) => Object.values(obj));
     const bonds = removeDuplicate(unfilterBonds);
+    // console.log("BONDS: ", bonds);
+    await connection.query("DELETE FROM bonds");
 
     // console.log("bonds :", unfilterBonds);
     for (const row of bonds) {
@@ -35,7 +38,7 @@ export async function GET() {
     return NextResponse.json({
       status: 500,
       error: error.message,
-      errMEssage: "Something went wrong while uploading bonds"
+      message: "Something went wrong while uploading bonds"
     });
   }
 }
