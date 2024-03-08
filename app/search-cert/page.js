@@ -3,6 +3,7 @@ import React from "react";
 import { useState } from "react";
 import axios from "axios";
 import PrintableCert from "../component/PrintableCert";
+import DocxTemplate from "../component/DocxTemplate";
 
 const SearchCert = () => {
   const apiUrl = "http://localhost:3000/api/cert/searchCert";
@@ -57,7 +58,7 @@ const SearchCert = () => {
         </button>
       </span>
 
-      {data && <PrintableCert data={data}/>}
+      {data && <DocxTemplate result={data}/>}
     </div>
   );
 };
