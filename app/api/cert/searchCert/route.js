@@ -12,7 +12,7 @@ export async function POST(request) {
       "SELECT * FROM `bonds` WHERE id = ?",
       [id]
     );
-    console.log("rows:", rows);
+    // console.log("rows:", rows);
     return NextResponse.json({
       results: rows,
     });

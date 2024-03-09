@@ -2,27 +2,45 @@
 import React from "react";
 import { useState } from "react";
 import axios from "axios";
-import PrintableCert from "../component/PrintableCert";
-import DocxTemplate from "../component/DocxTemplate";
 
 const SearchCert = () => {
-  const apiUrl = "http://localhost:3000/api/cert/searchCert";
-
   const [id, setId] = useState("");
   const [data, setData] = useState({});
 
+
   const handleSearch = async () => {
+    console.log("search id: ", id);
     try {
-      const response = await axios.post(apiUrl, JSON.stringify(id), {
+      const response = await axios.post("http://localhost:3000/api/cert/searchCert", JSON.stringify(id), {
         headers: {
           "Content-Type": "application/json",
         },
       });
       // Handle the response here
-      // console.log("response: ",rawData);
+      console.log("response: ", response.data.results[0]);
       setData(response.data.results[0]);
-      console.log("data: ", data);
 
+      if (data) {
+      setData(response.data.results[0]);
+        console.log("data: ", data);
+        try {
+          const bonds = await axios.post(
+            "http://localhost:3000/api/set-template",
+            JSON.stringify(data),
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
+          if (bonds) {
+            alert("BONDS Created Succesfully");
+          }
+        } catch (error) {
+          console.error("Error Searching certificate:", error.message);
+          alert("Failed to Create BONDS.docx");
+        }
+      }
       // if (!response.ok) {
       //   throw new Error("Failed to Search certificate.");
       // }
@@ -30,8 +48,6 @@ const SearchCert = () => {
       console.error("Error Searching certificate:", error.message);
       alert("Failed to Find certificate. Please try again later.");
     }
-    // revalidatePath('/posts') // Update cached posts
-    // redirect(`/post/${id}`) // Navigate to the new post page
   };
 
   return (
@@ -46,6 +62,10 @@ const SearchCert = () => {
             onChange={(e) => {
               setId(e.target.value);
             }}
+            onPaste={(e) => {
+              setId(e.target.value);
+              setId(e.target.value);
+            }}
             value={id}
           />
         </label>
@@ -57,8 +77,6 @@ const SearchCert = () => {
           Submit
         </button>
       </span>
-
-      {data && <DocxTemplate result={data}/>}
     </div>
   );
 };
