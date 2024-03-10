@@ -12,12 +12,12 @@ export const Navbar = () => {
       <div className="flex-none">
         <ul className="menu menu-horizontal px-1">
           <li>
-            <Link href={"/search-cert"}>Search</Link>
+            <Link href={"/search-cert"}>Create</Link>
           </li>
 
           <li>
             <details>
-              <summary>Actions</summary>
+              <summary>Menu</summary>
               <ul className="p-2 bg-base-100 rounded-t-none w-40">
                 <li>
                   <Link href={"/"}>Toturials</Link>

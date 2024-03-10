@@ -9,7 +9,6 @@ const SearchCert = () => {
 
 
   const handleSearch = async () => {
-    console.log("search id: ", id);
     try {
       const response = await axios.post("http://localhost:3000/api/cert/searchCert", JSON.stringify(id), {
         headers: {

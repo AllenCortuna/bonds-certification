@@ -32,7 +32,7 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-center justify-center gap-10 p-24">
       <Link href={"/search-cert"}>
         <button className="btn btn-outline rounded-md text-zinc-500 text-md">
-          Search Certificate
+          Create Certificate
         </button>
       </Link>
 
@@ -40,7 +40,7 @@ export default function Home() {
         className="btn btn-outline rounded-md text-zinc-500 text-md"
         onClick={handleRefresh}
       >
-        Refresh Data
+        Sync Bonds
       </button>
     </main>
   );

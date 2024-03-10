@@ -78,8 +78,3 @@ export const amountToWords = (amount) => {
 
   return `${pesosInWords} Pesos & ${fraction}`;
 };
-
-export const formatNumber = (number) => {
-  return parseInt(number)
-    .replace(/\d(?=(\d{3})+\.)/g, "$&,");
-};

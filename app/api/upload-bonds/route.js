@@ -9,7 +9,7 @@ import { log } from "console";
 export async function GET() {
   try {
     // const buffer = fs.readFileSync("/Users/zanzen/Desktop/DPWH/bonds.xlsm"); //mac
-    const buffer = fs.readFileSync("C:/Users/User/Desktop/bonds.xlsm");
+    const buffer = fs.readFileSync(process.env.BONDS_DIR);
     const workbook = xlsx.read(buffer, { type: "buffer" });
     const sheetName = workbook.SheetNames[7];
     const sheet = workbook.Sheets[sheetName];
