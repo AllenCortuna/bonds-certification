@@ -3,12 +3,13 @@ import connection from "@/config/db";
 import * as xlsx from "xlsx";
 import fs from "fs";
 import { filterSignatury } from "@/config/filterSignatury";
+import { whoDir } from "@/config/path";
 
 
 export async function GET() {
   try {
     // const buffer = fs.readFileSync("/Users/zanzen/Desktop/DPWH/bonds.xlsm");
-    const buffer = fs.readFileSync(process.env.WHO_DIR);
+    const buffer = fs.readFileSync(whoDir);
     const workbook = xlsx.read(buffer, { type: "buffer" });
     const sheetName = workbook.SheetNames[8];
     const sheet = workbook.Sheets[sheetName];

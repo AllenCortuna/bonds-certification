@@ -6,10 +6,11 @@ import Docxtemplater from "docxtemplater";
 import { convertToDate } from "@/config/convertToDate";
 import { amountToWords } from "@/config/amountToWords";
 import { formatNumber } from "@/config/formatNumber";
+import { templateDir } from "@/config/path";
 
 export async function POST(request) {
   const templateFile = fs.readFileSync(
-    path.resolve(__dirname, process.env.TEMPLATE_DIR),
+    path.resolve(__dirname, templateDir),
     "binary"
   );
   const zip = new PizZip(templateFile);
@@ -53,7 +54,7 @@ export async function POST(request) {
 
       // Save the buffer to a file
       fs.writeFileSync(
-        path.resolve(__dirname, process.env.OUTPUT_DIR),
+        path.resolve(__dirname, `C:/Users/User/Desktop/BONDS/${rawData.id} Certifications.docx`),
         outputDocumentBuffer
       );
     } catch (error) {

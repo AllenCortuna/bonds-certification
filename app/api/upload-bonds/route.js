@@ -4,12 +4,13 @@ import * as xlsx from "xlsx";
 import fs from "fs";
 import { removeDuplicate } from "@/config/removeDuplicate";
 import { log } from "console";
+import { bondsDir } from "@/config/path";
 
 
 export async function GET() {
   try {
     // const buffer = fs.readFileSync("/Users/zanzen/Desktop/DPWH/bonds.xlsm"); //mac
-    const buffer = fs.readFileSync(process.env.BONDS_DIR);
+    const buffer = fs.readFileSync(bondsDir);
     const workbook = xlsx.read(buffer, { type: "buffer" });
     const sheetName = workbook.SheetNames[7];
     const sheet = workbook.Sheets[sheetName];
