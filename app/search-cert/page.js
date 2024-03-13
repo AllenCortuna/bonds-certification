@@ -5,27 +5,26 @@ import axios from "axios";
 
 const SearchCert = () => {
   const [id, setId] = useState("");
-  const [data, setData] = useState({});
+  // const [data, setData] = useState({});
 
 
   const handleSearch = async () => {
     try {
-      const response = await axios.post("http://localhost:3000/api/cert/searchCert", JSON.stringify(id), {
+      const response = await axios.post("http://localhost:3000/api/cert/search-cert", JSON.stringify(id), {
         headers: {
           "Content-Type": "application/json",
         },
       });
       // Handle the response here
       console.log("response: ", response.data.results[0]);
-      setData(response.data.results[0]);
 
-      if (data) {
-      setData(response.data.results[0]);
-        console.log("data: ", data);
+      if (response.data.results[0]) {
+        // setData(response.data.results[0]);
+        // console.log("data: ", response.data.results[0]);
         try {
           const bonds = await axios.post(
             "http://localhost:3000/api/set-template",
-            JSON.stringify(data),
+            JSON.stringify(response.data.results[0]),
             {
               headers: {
                 "Content-Type": "application/json",
@@ -40,9 +39,6 @@ const SearchCert = () => {
           alert("Failed to Create BONDS.docx");
         }
       }
-      // if (!response.ok) {
-      //   throw new Error("Failed to Search certificate.");
-      // }
     } catch (error) {
       console.error("Error Searching certificate:", error.message);
       alert("Failed to Find certificate. Please try again later.");
