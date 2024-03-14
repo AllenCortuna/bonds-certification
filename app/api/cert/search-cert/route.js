@@ -8,15 +8,16 @@ export async function POST(request) {
     const id = await request.json();
     console.log("SUBMITTED ID: ", id);
 
-    const [rows,fields] = await connection.query(
-      "SELECT * FROM `bonds` WHERE id = ?",
-      [id]
+    const [rows, fields] = await connection.query(
+      "SELECT * FROM `bonds` INNER JOIN `who` ON bonds.id = who.id WHERE bonds.id = ?",
+        [id]
     );
-    // console.log("rows:", rows);
+    console.log("ROWS: ", rows);
     return NextResponse.json({
       results: rows,
     });
   } catch (error) {
+    console.log("ERROR: ", error);
     return NextResponse.json({
       error: error,
     });
