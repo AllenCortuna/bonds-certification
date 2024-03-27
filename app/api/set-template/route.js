@@ -35,6 +35,7 @@ export async function POST(request) {
       expiration_date: convertToDate(rawData.expiration_date),
       validity: rawData.validity,
       bond_no: rawData.bond_no,
+      the_who: rawData.the_who,
       insurance_company: rawData.insurance_company,
       bond_type: rawData.bond_type,
     };
@@ -54,7 +55,7 @@ export async function POST(request) {
 
       // Save the buffer to a file
       fs.writeFileSync(
-        path.resolve(__dirname, `/Users/zanzen/Desktop/BONDS/${rawData.id} BONDS.docx`),
+        path.resolve(__dirname, process.env.OUTPUT_DIR),
         outputDocumentBuffer
       );
     } catch (error) {
