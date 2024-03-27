@@ -10,7 +10,7 @@ const SearchCert = () => {
 
   const handleSearch = async () => {
     try {
-      const response = await axios.post("http://localhost:3000/api/cert/searchCert", JSON.stringify(id), {
+      const response = await axios.post("http://localhost:3000/api/search-cert", JSON.stringify(id), {
         headers: {
           "Content-Type": "application/json",
         },
