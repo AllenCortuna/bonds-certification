@@ -4,7 +4,6 @@ import connection from "@/config/db";
 export async function POST(request) {
   try {
     // Extract data from the request body
-    console.log("try search");
     const data = await request.json();
     // const { contractNo, content } = req.body.json();
     console.log(data);
@@ -15,7 +14,7 @@ export async function POST(request) {
       [data.id]
     );
 
-    console.log("Data from Search:", result);
+    // console.log("Data from Search:", result);
     return NextResponse.json({
       data,
     });

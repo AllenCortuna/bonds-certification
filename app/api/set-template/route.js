@@ -14,13 +14,13 @@ export async function POST(request) {
     "binary"
   );
   const zip = new PizZip(templateFile);
-  console.log("here");
+  // console.log("here");
 
   try {
     // Attempt to read all the templated tags
     let outputDocument = new Docxtemplater(zip);
     const rawData = await request.json();
-    console.log("rawData", rawData);
+    // console.log("rawData", rawData);
     const id = `${rawData.bond_type} ${rawData.bond_no}`;
     const dataToAdd = {
       id,
@@ -39,7 +39,7 @@ export async function POST(request) {
       insurance_company: rawData.insurance_company,
       bond_type: rawData.bond_type,
     };
-    console.log("dataToAdd: ", dataToAdd);
+    // console.log("dataToAdd: ", dataToAdd);
 
     // Set the data we wish to add to the document
     outputDocument.setData(dataToAdd);

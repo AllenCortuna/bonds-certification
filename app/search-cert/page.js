@@ -11,6 +11,12 @@ const SearchCert = () => {
 
   const handleSubmit = async () => {
     try {
+      if (!id) {
+        errorToast("Please enter Bond type and Contract NO.");
+      }
+      if (id.charAt(0) == " ") {
+        errorToast("The first character must not be space");
+      }
       const response = await axios.post(
         "http://localhost:3000/api/cert/search-cert",
         JSON.stringify(id),
@@ -21,8 +27,11 @@ const SearchCert = () => {
         }
       );
       // Handle the response here
-      console.log("response: ", response.data.results[0]);
+      // console.log("response: ", response.data.results[0]);
 
+      if (!response.data.results[0]) {
+        errorToast("Submitted Contract NO. did not match  any data");
+      }
       if (response.data.results[0]) {
         try {
           const bonds = await axios.post(
