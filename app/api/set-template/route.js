@@ -55,7 +55,7 @@ export async function POST(request) {
 
       // Save the buffer to a file
       fs.writeFileSync(
-        path.resolve(__dirname, `C:/Users/User/Desktop/BONDS/${rawData.id} Certifications.docx`),
+        path.resolve(__dirname, process.env.OUTPUT_DIR),
         outputDocumentBuffer
       );
     } catch (error) {
