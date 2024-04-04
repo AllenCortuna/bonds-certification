@@ -20,7 +20,6 @@ const SearchCert = () => {
           },
         }
       );
->>>>>>> c6485eef4800455acb1be69260a6825294186570
       // Handle the response here
       // console.log("response: ", response.data.results[0]);
 
