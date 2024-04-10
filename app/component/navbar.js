@@ -20,10 +20,10 @@ export const Navbar = () => {
               <summary>Menu</summary>
               <ul className="p-2 bg-base-100 rounded-t-none w-40">
                 <li>
-                  <Link href={"/"}>Toturials</Link>
+                  <Link href={"/"}>Documentation</Link>
                 </li>
                 <li>
-                  <Link href={"/"}>Trobleshoot</Link>
+                  <Link href={"/set-folder"}>Folder</Link>
                 </li>
               </ul>
             </details>

@@ -10,13 +10,14 @@ export default function Home() {
     const whoApi = "http://localhost:3000/api/upload-who";
 
     try {
+      const folderData = JSON.parse(localStorage.getItem("folderData"));
       // Make GET requests to both endpoints
-      const response1 = await axios.get(bondsApi);
+      const response1 = await axios.post(bondsApi,folderData);
       console.log("Response from endpoint1:", response1.data);
 
-      const response2 = await axios.get(whoApi);
+      const response2 = await axios.post(whoApi,folderData);
       console.log("Response from endpoint2:", response2.data);
-      
+
       if (response1.data.error || response2.data.error) {
         window.alert(`${response1.data.error} &  ${response2.data.error}`);
       } else {

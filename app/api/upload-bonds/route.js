@@ -6,11 +6,12 @@ import { removeDuplicate } from "@/config/removeDuplicate";
 import { log } from "console";
 import { bondsDir } from "@/config/path";
 
-
-export async function GET() {
+export async function POST(request) {
   try {
-    // const buffer = fs.readFileSync("/Users/zanzen/Desktop/DPWH/bonds.xlsm"); //mac
-    const buffer = fs.readFileSync(bondsDir);
+    const rawData = await request.json();
+    const bondPath = rawData?.bondPath;
+    console.log("BONDS PATH: ",bondPath);
+    const buffer = fs.readFileSync(bondPath);
     const workbook = xlsx.read(buffer, { type: "buffer" });
     const sheetName = workbook.SheetNames[7];
     const sheet = workbook.Sheets[sheetName];
@@ -39,7 +40,7 @@ export async function GET() {
     return NextResponse.json({
       status: 500,
       error: error.message,
-      message: "Something went wrong while uploading bonds"
+      message: "Something went wrong while uploading bonds",
     });
   }
 }

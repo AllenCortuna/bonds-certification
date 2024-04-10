@@ -8,8 +8,9 @@ import { whoDir } from "@/config/path";
 
 export async function GET() {
   try {
-    // const buffer = fs.readFileSync("/Users/zanzen/Desktop/DPWH/bonds.xlsm");
-    const buffer = fs.readFileSync(whoDir);
+    const rawData = await request.json();
+    const bondPath = rawData?.bondPath;
+    const buffer = fs.readFileSync(bondPath);
     const workbook = xlsx.read(buffer, { type: "buffer" });
     const sheetName = workbook.SheetNames[8];
     const sheet = workbook.Sheets[sheetName];

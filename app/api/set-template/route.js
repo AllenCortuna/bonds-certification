@@ -6,38 +6,38 @@ import Docxtemplater from "docxtemplater";
 import { convertToDate } from "@/config/convertToDate";
 import { amountToWords } from "@/config/amountToWords";
 import { formatNumber } from "@/config/formatNumber";
-import { templateDir } from "@/config/path";
 
 export async function POST(request) {
+  const rawData = await request.json();
+  const folderData = rawData?.folderData
   const templateFile = fs.readFileSync(
-    path.resolve(__dirname, templateDir),
+    path.resolve(__dirname,folderData?.templatePath),
     "binary"
   );
   const zip = new PizZip(templateFile);
   // console.log("here");
 
   try {
-    // Attempt to read all the templated tags
     let outputDocument = new Docxtemplater(zip);
-    const rawData = await request.json();
-    // console.log("rawData", rawData);
-    const id = `${rawData.bond_type} ${rawData.bond_no}`;
+    const bondData = rawData?.bondData
+    console.log("Raw Data", rawData);
+    const id = `${bondData.bond_type} ${bondData.bond_no}`;
     const dataToAdd = {
       id,
-      num: rawData.num,
-      contractor_name: rawData.contractor_name,
-      project_no: rawData.project_no,
-      project_name: rawData.project_name,
-      amount: formatNumber(rawData.amount),
-      amountInWords: amountToWords(rawData.amount),
-      date_validated: convertToDate(rawData.date_validated),
-      effectivity_date: convertToDate(rawData.effectivity_date),
-      expiration_date: convertToDate(rawData.expiration_date),
-      validity: rawData.validity,
-      bond_no: rawData.bond_no,
-      the_who: rawData.the_who,
-      insurance_company: rawData.insurance_company,
-      bond_type: rawData.bond_type,
+      num: bondData.num,
+      contractor_name: bondData.contractor_name,
+      project_no: bondData.project_no,
+      project_name: bondData.project_name,
+      amount: formatNumber(bondData.amount),
+      amountInWords: amountToWords(bondData.amount),
+      date_validated: convertToDate(bondData.date_validated),
+      effectivity_date: convertToDate(bondData.effectivity_date),
+      expiration_date: convertToDate(bondData.expiration_date),
+      validity: bondData.validity,
+      bond_no: bondData.bond_no,
+      the_who: bondData.the_who,
+      insurance_company: bondData.insurance_company,
+      bond_type: bondData.bond_type,
     };
     // console.log("dataToAdd: ", dataToAdd);
 
@@ -55,7 +55,7 @@ export async function POST(request) {
 
       // Save the buffer to a file
       fs.writeFileSync(
-        path.resolve(__dirname, process.env.OUTPUT_DIR),
+        path.resolve(__dirname, folderData?.outputFolder),
         outputDocumentBuffer
       );
     } catch (error) {

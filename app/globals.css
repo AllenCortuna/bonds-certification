@@ -11,3 +11,18 @@
     text-wrap: balance;
   }
 }
+
+@layer components {
+  .custom-input {
+    @apply input input-sm text-sm text-zinc-400 input-bordered bg-zinc-100 focus:text-zinc-600 focus:outline-primary focus:border-zinc-100;
+  }
+  .custom-textarea {
+    @apply textarea textarea-bordered w-auto resize-none text-xs bg-zinc-100 focus:outline-primary focus:border-primary focus:border-zinc-100;
+  }
+  .primary-text {
+    @apply text-sm text-zinc-500;
+  }
+  .highligth-text {
+    @apply text-xs text-zinc-600 font-semibold;
+  }
+}
