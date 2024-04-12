@@ -28,9 +28,10 @@ const SearchCert = () => {
       }
       if (response.data.results[0]) {
         try {
+          const folderData = JSON.parse(localStorage.getItem("folderData"));
           const bonds = await axios.post(
             "http://localhost:3000/api/set-template",
-            JSON.stringify(response.data.results[0]),
+            JSON.stringify({ bondData: response.data.results[0], folderData }),
             {
               headers: {
                 "Content-Type": "application/json",

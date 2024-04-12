@@ -20,7 +20,7 @@ export async function POST(request) {
   try {
     let outputDocument = new Docxtemplater(zip);
     const bondData = rawData?.bondData
-    console.log("Raw Data", rawData);
+    console.log("rawData", rawData);
     const id = `${bondData.bond_type} ${bondData.bond_no}`;
     const dataToAdd = {
       id,
@@ -55,7 +55,7 @@ export async function POST(request) {
 
       // Save the buffer to a file
       fs.writeFileSync(
-        path.resolve(__dirname, folderData?.outputFolder),
+        path.resolve(__dirname,  `${folderData?.outputFolder}/ ${id} Certfications.docx`),
         outputDocumentBuffer
       );
     } catch (error) {

@@ -6,7 +6,7 @@ import { filterSignatury } from "@/config/filterSignatury";
 import { whoDir } from "@/config/path";
 
 
-export async function GET() {
+export async function POST(request) {
   try {
     const rawData = await request.json();
     const bondPath = rawData?.bondPath;
