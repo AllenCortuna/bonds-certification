@@ -1,3 +1,3 @@
 export const formatNumber = (number) => {
-    return number.replace(/\d(?=(\d{3})+\.)/g, "$&,");
-  };
+  return number.toString().replace(/\d(?=(\d{3})+\.)/g, "$&,");
+};

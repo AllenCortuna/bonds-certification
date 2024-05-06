@@ -40,29 +40,29 @@ const SearchCert = () => {
 
   const handleSubmit = async () => {
     try {
-      const excelData = JSON.parse(localStorage.getItem("bondData"));
+      const bondData = JSON.parse(localStorage.getItem("bondData"));
       const whoData = JSON.parse(localStorage.getItem("whoData"));
       console.log('id :>> ', id);
       const response = await axios.post(
         "http://localhost:3000/api/search-cert",
-        JSON.stringify({ id, excelData, whoData }),
+        JSON.stringify({ id, bondData, whoData }),
         {
           headers: {
             "Content-Type": "application/json",
           },
         }
       );
-      // console.log("response: ", response.data.results[0]);
+      console.log("response: ", response.data.result);
 
-      if (!response.data.results[0]) {
+      if (!response.data.result) {
         errorToast("Submitted Contract NO. did not match  any data");
       }
-      if (response.data.results[0]) {
+      if (response.data.result) {
         try {
           const folderData = JSON.parse(localStorage.getItem("folderData"));
           const bonds = await axios.post(
             "http://localhost:3000/api/set-template",
-            JSON.stringify({ bondData: response.data.results[0], folderData }),
+            JSON.stringify({ bondData: response.data.result, folderData }),
             {
               headers: {
                 "Content-Type": "application/json",

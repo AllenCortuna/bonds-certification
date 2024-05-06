@@ -69,7 +69,7 @@ export const amountToWords = (amount) => {
       );
   };
 
-  const [pesos, cents] = amount.split(".");
+  const [pesos, cents] = amount.toString().split(".");
   const pesosInWords =
     numberToWordsRecursive(parseInt(pesos.replace(/\D/g, ""))) || "Zero";
   const centsInWords = numberToWordsRecursive(parseInt(cents) || 0) || "Zero";

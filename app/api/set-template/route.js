@@ -15,29 +15,28 @@ export async function POST(request) {
     "binary"
   );
   const zip = new PizZip(templateFile);
-  // console.log("here");
 
   try {
+    console.log("here")
     let outputDocument = new Docxtemplater(zip);
     const bondData = rawData?.bondData
-    console.log("rawData", rawData);
-    const id = `${bondData.bond_type} ${bondData.bond_no}`;
+    console.log("amount", rawData.bondData[5]);
     const dataToAdd = {
-      id,
-      num: bondData.num,
-      contractor_name: bondData.contractor_name,
-      project_no: bondData.project_no,
-      project_name: bondData.project_name,
-      amount: formatNumber(bondData.amount),
-      amountInWords: amountToWords(bondData.amount),
-      date_validated: convertToDate(bondData.date_validated),
-      effectivity_date: convertToDate(bondData.effectivity_date),
-      expiration_date: convertToDate(bondData.expiration_date),
-      validity: bondData.validity,
-      bond_no: bondData.bond_no,
-      the_who: bondData.the_who,
-      insurance_company: bondData.insurance_company,
-      bond_type: bondData.bond_type,
+      id : bondData[0],
+      num: bondData[1],
+      contractor_name: bondData[2],
+      project_no: bondData[3],
+      project_name: bondData[4],
+      amount: formatNumber(bondData[5]),
+      amountInWords: amountToWords(bondData[5]),
+      date_validated: convertToDate(bondData[6]),
+      effectivity_date: convertToDate(bondData[7]),
+      expiration_date: convertToDate(bondData[8]),
+      validity: bondData[9],
+      bond_no: bondData[10],
+      the_who: bondData[14],
+      insurance_company: bondData[11],
+      bond_type: bondData[13],
     };
     // console.log("dataToAdd: ", dataToAdd);
 
@@ -55,7 +54,7 @@ export async function POST(request) {
 
       // Save the buffer to a file
       fs.writeFileSync(
-        path.resolve(__dirname,  `${folderData?.outputFolder}/ ${id} Certfications.docx`),
+        path.resolve(__dirname,  `${folderData?.outputFolder}/ ${bondData[0]} Certfications.docx`),
         outputDocumentBuffer
       );
     } catch (error) {
