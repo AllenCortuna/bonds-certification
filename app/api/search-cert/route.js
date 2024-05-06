@@ -1,20 +1,20 @@
 import { NextResponse } from "next/server";
-import connection from "@/config/db";
 
 export async function POST(request) {
   console.log("TRY SEARCH ");
   try {
     // Extract data from the request body
-    const id = await request.json();
-    console.log("SUBMITTED ID: ", id);
+    const data = await request.json();
+    const id = data?.id;
+    const bondData = data?.bondData;
+    const whoData = data?.whoData;
 
-    const [rows, fields] = await connection.query(
-      "SELECT * FROM `bonds` INNER JOIN `who` ON bonds.id = who.id WHERE bonds.id = ?",
-        [id]
-    );
-    console.log("ROWS: ", rows);
+    console.log("SUBMITTED ID: ", id);
+    // console.log('whoData :>> ', whoData);
+
+
     return NextResponse.json({
-      results: rows,
+      result: id,
     });
   } catch (error) {
     console.log("ERROR: ", error);

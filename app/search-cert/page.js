@@ -1,113 +1,40 @@
 "use client";
-import React from "react";
-import { useState } from "react";
 import axios from "axios";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { errorToast, successToast } from "@/config/toast";
+import Link from "next/link";
 
-const SearchCert = () => {
-  const [id, setId] = useState("");
+export default function Home() {
+  const handleRefresh = async () => {
+    console.log("refresh");
+    // Define the URLs for the API endpoints
+    const bondsApi = "http://localhost:3000/api/upload-bonds";
+    const whoApi = "http://localhost:3000/api/upload-who";
 
-  const handleSubmit = async () => {
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/cert/search-cert",
-        JSON.stringify(id),
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      // Handle the response here
-      // console.log("response: ", response.data.results[0]);
+      const folderData = JSON.parse(localStorage.getItem("folderData"));
+      // Make GET requests to both endpoints
+      const response1 = await axios.post(bondsApi, folderData);
+      console.log("Response from endpoint1:", response1.data);
 
-      if (!response.data.results[0]) {
-        errorToast("Submitted Contract NO. did not match  any data");
-      }
-      if (response.data.results[0]) {
-        try {
-          const folderData = JSON.parse(localStorage.getItem("folderData"));
-          const bonds = await axios.post(
-            "http://localhost:3000/api/set-template",
-            JSON.stringify({ bondData: response.data.results[0], folderData }),
-            {
-              headers: {
-                "Content-Type": "application/json",
-              },
-            }
-          );
-          if (bonds) {
-            successToast("BONDS Created Succesfully");
-          }
-        } catch (error) {
-          console.error("Error Searching certificate:", error.message);
-          errorToast("Failed to Create BONDS.docx");
-        }
+      const response2 = await axios.post(whoApi, folderData);
+      console.log("Response from endpoint2:", response2.data);
+
+      if (response1.data.error || response2.data.error) {
+        window.alert(`${response1.data.error} &  ${response2.data.error}`);
+      } else {
+        window.alert(`${response1.data.message} &  ${response2.data.message}`);
       }
     } catch (error) {
-      console.error("Error Searching certificate:", error.message);
-      errorToast("Failed to Find certificate. Please try again later.");
+      console.error("Error:", error);
     }
   };
 
   return (
-    <div className="flex flex-col">
-      <ToastContainer />
-      <span className="flex flex-row gap-4 justify-center p-10">
-        <label className="input input-bordered flex items-center gap-2 w-80">
-          {/* TODO: Icon  */}
-          <input
-            type="text"
-            className="grow"
-            placeholder="Paste here..."
-            onChange={(e) => {
-              setId(e.target.value);
-            }}
-            onPaste={(e) => {
-              setId(e.target.value);
-              setId(e.target.value);
-            }}
-            value={id}
-          />
-        </label>
-        {/* Search  */}
-        <button
-          onClick={handleSubmit}
-          className="btn btn-neutral text-zinc-50 hover:bg-orange-500 hover:border-orange-500 hover:shadow-md rounded-md text-md w-32 font-normal"
-        >
-          Submit
+    <main className="flex min-h-screen flex-col items-center justify-center gap-10 p-24">
+      <Link href={"/search-cert"}>
+        <button className="btn btn-outline rounded-md text-zinc-500 text-md">
+          Create Certificate
         </button>
-      </span>
-    </div>
+      </Link>
+    </main>
   );
-};
-
-export default SearchCert;
-
-// const successToast = (text) =>
-//   toast.success(text, {
-//     position: "top-right",
-//     autoClose: 8000,
-//     hideProgressBar: false,
-//     closeOnClick: true,
-//     pauseOnHover: true,
-//     draggable: true,
-//     progress: undefined,
-//     theme: "colored",
-//     // transition: Bounce,
-//   });
-
-// const errorToast = (text) =>
-//   toast.error(text, {
-//     position: "top-right",
-//     autoClose: 8000,
-//     hideProgressBar: false,
-//     closeOnClick: true,
-//     pauseOnHover: true,
-//     draggable: true,
-//     progress: undefined,
-//     theme: "colored",
-//     // transition: Bounce,
-//   });
+}

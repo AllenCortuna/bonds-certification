@@ -11,9 +11,9 @@ export const Navbar = () => {
       </div>
       <div className="flex-none">
         <ul className="menu menu-horizontal px-1">
-          <li>
+          {/* <li>
             <Link href={"/search-cert"}>Create</Link>
-          </li>
+          </li> */}
 
           <li>
             <details>
