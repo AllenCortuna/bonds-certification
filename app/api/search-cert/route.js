@@ -19,11 +19,13 @@ export async function POST(request) {
 
     const bond = filterArrayById(id, bondData);
     const who = filterArrayById(id, whoData);
-    // console.log("bond result :>> ", bond);
-    // console.log("who result :>> ", who);
     const result = [...bond, ...who];
-    // console.log('result :>> ', result);
 
+    if (!bond || !who) {
+      return NextResponse.json({
+        message: "There is an error retrieving data from excel file.",
+      });
+    }
     return NextResponse.json({
       result,
     });

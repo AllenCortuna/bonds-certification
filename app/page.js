@@ -73,7 +73,7 @@ const SearchCert = () => {
             successToast("BONDS Created Succesfully");
           }
         } catch (error) {
-          console.error("Error Searching certificate:", error.message);
+          console.error("Error Creating BOND:", error.message);
           errorToast("Failed to Create BONDS.docx");
         }
       }
@@ -87,7 +87,7 @@ const SearchCert = () => {
     <div className="flex flex-col">
       <ToastContainer />
       <span className="flex flex-row gap-4 justify-center p-10">
-        <label className="input input-bordered flex items-center gap-2 w-80">
+        <label className="input input-bordered flex items-center gap-2 w-[30rem]">
           {/* TODO: Icon  */}
           <input
             type="text"
