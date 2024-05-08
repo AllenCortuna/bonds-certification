@@ -19,22 +19,26 @@ const SearchCert = () => {
       const folderData = JSON.parse(localStorage.getItem("folderData"));
       // Make GET requests to both endpoints
       //save BONDS to local storage
+      if (!folderData || Object.keys(folderData).length != 3) {
+        errorToast("Please enter complete folder location input");
+      }
       const response1 = await axios.post(bondsApi, folderData);
-      console.log("Response from endpoint1:", response1.data.data);
+      // console.log("Response from endpoint1:", response1.data.data);
       localStorage.setItem("bondData", JSON.stringify(response1.data.data));
       //save PERSONS to local storage
       const response2 = await axios.post(whoApi, folderData);
-      console.log("Response from endpoint2:", response2.data.data);
+      // console.log("Response from endpoint2:", response2.data.data);
       localStorage.setItem("whoData", JSON.stringify(response2.data.data));
 
       if (response1.data.error || response2.data.error) {
-        window.alert(`${response1.data.error} &  ${response2.data.error}`);
+        errorToast(`${response1.data.error} &  ${response2.data.error}`);
       } else {
-        window.alert(`${response1.data.message} &  ${response2.data.message}`);
+        successToast(`${response1.data.message} &  ${response2.data.message}`);
       }
     } catch (error) {
       // Handle any errors
       console.error("Error:", error);
+      errorToast(error);
     }
   };
 
@@ -42,7 +46,6 @@ const SearchCert = () => {
     try {
       const bondData = JSON.parse(localStorage.getItem("bondData"));
       const whoData = JSON.parse(localStorage.getItem("whoData"));
-      console.log('id :>> ', id);
       const response = await axios.post(
         "http://localhost:3000/api/search-cert",
         JSON.stringify({ id, bondData, whoData }),
@@ -52,7 +55,7 @@ const SearchCert = () => {
           },
         }
       );
-      console.log("response: ", response.data.result);
+      // console.log("response: ", response.data.result);
 
       if (!response.data.result) {
         errorToast("Submitted Contract NO. did not match  any data");
